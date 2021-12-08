@@ -1,6 +1,5 @@
 package com.example.weather.adapters;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,14 +30,14 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherH
     @Override
     public void onBindViewHolder(@NonNull WeatherHolder holder, int position) {
 
-        Log.e("TAG", getCurrentTime());
+        String itemTime = items.get(position).getFcstTime().substring(0, 2);
 
         if (items.get(position).getCategory().equals("SKY")) {
-            if (items.get(position).getFcstTime().substring(0, 2).equals(getCurrentTime())) {
+            if (Integer.parseInt(getCurrentTime()) <= Integer.parseInt(itemTime)) {
+                holder.txtTime.setText(itemTime.equals(getCurrentTime()) ? "지금" : itemTime + "시");
+                holder.ListWeatherImg.setImageResource(getImage(position));
+                holder.txtListTemp.setText(items.get(position).getFcstDate());
             }
-            holder.txtTime.setText(items.get(position).getFcstTime().substring(0, 2).equals(getCurrentTime()) ? "지금" : items.get(position).getFcstTime().substring(0, 2) + "시");
-            holder.ListWeatherImg.setImageResource(R.drawable.ic_launcher_background);
-            holder.txtListTemp.setText(items.get(position).getFcstValue());
         }
     }
 
@@ -72,8 +71,15 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherH
     }
 
     private String getCurrentTime() {
-
         SimpleDateFormat sdf = new SimpleDateFormat("HH", Locale.KOREA);
         return sdf.format(System.currentTimeMillis());
+    }
+
+    private int getImage(int position) {
+        String category = items.get(position).getCategory();
+
+        int result = R.drawable.sunny_day;
+
+        return result;
     }
 }
