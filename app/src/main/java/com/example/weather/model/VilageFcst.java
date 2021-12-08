@@ -31,14 +31,6 @@ public class VilageFcst {
         public Body getBody() {
             return body;
         }
-
-        @Override
-        public String toString() {
-            return "Response{" +
-                    "header=" + header +
-                    ", body=" + body +
-                    '}';
-        }
     }
 
     public static class Header {
@@ -56,14 +48,6 @@ public class VilageFcst {
         }
         public String getResultMsg() {
             return resultMsg;
-        }
-
-        @Override
-        public String toString() {
-            return "Header{" +
-                    "resultCode='" + resultCode + '\'' +
-                    ", resultMsg='" + resultMsg + '\'' +
-                    '}';
         }
     }
 
@@ -104,17 +88,6 @@ public class VilageFcst {
         public String getTotalCount() {
             return totalCount;
         }
-
-        @Override
-        public String toString() {
-            return "Body{" +
-                    "dataType='" + dataType + '\'' +
-                    ", items=" + items +
-                    ", pageNo='" + pageNo + '\'' +
-                    ", numOfRows='" + numOfRows + '\'' +
-                    ", totalCount='" + totalCount + '\'' +
-                    '}';
-        }
     }
 
     public static class Items {
@@ -125,13 +98,6 @@ public class VilageFcst {
 
         public List<Item> getItem() {
             return item;
-        }
-
-        @Override
-        public String toString() {
-            return "Items{" +
-                    "item=" + item +
-                    '}';
         }
     }
 
@@ -192,20 +158,6 @@ public class VilageFcst {
         }
         public String getNy() {
             return ny;
-        }
-
-        @Override
-        public String toString() {
-            return "Item{" +
-                    "baseDate='" + baseDate + '\'' +
-                    ", baseTime='" + baseTime + '\'' +
-                    ", category='" + category + '\'' +
-                    ", fcstDate='" + fcstDate + '\'' +
-                    ", fcstTime='" + fcstTime + '\'' +
-                    ", fcstValue='" + fcstValue + '\'' +
-                    ", nx='" + nx + '\'' +
-                    ", ny='" + ny + '\'' +
-                    '}';
         }
     }
 }
