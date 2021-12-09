@@ -1,11 +1,14 @@
 package com.example.weather.repository;
 
+import android.content.Context;
 import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.weather.BuildConfig;
+import com.example.weather.activity.MainActivity;
 import com.example.weather.model.VilageFcst;
+import com.example.weather.network.GpsTracker;
 import com.example.weather.network.WeatherAPI;
 import com.example.weather.network.RetrofitService;
 
@@ -22,13 +25,20 @@ public class WeatherRepository {
 
     private WeatherAPI weatherAPI;
 
+    //위치 정보
+    private GpsTracker gpsTracker;
+
+    private Context context;
+
+    private SimpleDateFormat sdf;
+
     String serviceKey = BuildConfig.SERVICE_KEY;
     String pageNo = "1";
-    String numOfRows = "1000";
+    String numOfRows = "11";
     String dataType = "JSON";
     String base_date = getTodayDate();
-    String base_time = "0500";
-    String nx = "55";
+    String base_time = getBaseTime();
+    String nx = "37";
     String ny = "127";
 
     public static WeatherRepository getInstance() {
@@ -38,18 +48,26 @@ public class WeatherRepository {
         return instance;
     }
 
-    public MutableLiveData<VilageFcst> getWeather() {
+    public MutableLiveData<VilageFcst> getWeather(Context context) {
+        this.context = context;
+
         weatherAPI = RetrofitService.getInstance().create(WeatherAPI.class);
 
         MutableLiveData<VilageFcst> data = new MutableLiveData<>();
         callWeatherAPI(data);
 
-        Log.e("TAG", "getWeather");
-
         return data;
     }
 
     private void callWeatherAPI(MutableLiveData<VilageFcst> data) {
+
+        gpsTracker = new GpsTracker(context);
+        int currentLat = (int)Math.floor(gpsTracker.getLatitude());
+        int currentLon = (int)Math.floor(gpsTracker.getLongitude());
+
+        nx = String.valueOf(currentLat);
+        ny = String.valueOf(currentLon);
+
         weatherAPI.getVilageFcst(serviceKey, pageNo, numOfRows, dataType, base_date, base_time, nx, ny).enqueue(new Callback<VilageFcst>() {
             @Override
             public void onResponse(Call<VilageFcst> call, Response<VilageFcst> response) {
@@ -68,7 +86,54 @@ public class WeatherRepository {
     }
 
     private String getTodayDate() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd", Locale.KOREA);
+        sdf = new SimpleDateFormat("yyyyMMdd", Locale.KOREA);
         return sdf.format(System.currentTimeMillis());
+    }
+
+    private String getBaseTime() {
+        String basetime;
+        sdf = new SimpleDateFormat("HH", Locale.KOREA);
+        String nowTime = sdf.format(System.currentTimeMillis())+"00";
+
+        switch(nowTime) {
+            case "0200":
+            case "0300":
+            case "0400":
+                basetime = "0200";
+                break;
+            case "0500":
+            case "0600":
+            case "0700":
+                basetime = "0500";
+                break;
+            case "0800":
+            case "0900":
+            case "1000":
+                basetime = "0800";
+                break;
+            case "1100":
+            case "1200":
+            case "1300":
+                basetime = "1100";
+                break;
+            case "1400":
+            case "1500":
+            case "1600":
+                basetime = "1400";
+                break;
+            case "1700":
+            case "1800":
+            case "1900":
+                basetime = "1700";
+                break;
+            case "2000":
+            case "2100":
+            case "2200":
+                basetime = "2000";
+                break;
+            default:
+                basetime = "2300";
+        }
+        return basetime;
     }
 }
