@@ -26,7 +26,8 @@
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginBottom="10dp"
+            android:contentDescription="@string/xNoImg"/>
 
         <TextView
             android:id="@+id/txtTemp"
@@ -51,6 +52,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
+        android:baselineAligned="false"
         android:layout_weight="2">
 
         <LinearLayout
@@ -67,13 +69,14 @@
                 android:layout_height="100dp"
                 android:background="@drawable/drop"
                 android:layout_marginTop="3dp"
-                android:layout_marginBottom="3dp">
+                android:layout_marginBottom="3dp"
+                android:contentDescription="@string/xNoImg">
             </ImageView>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
-                android:text="강수량">
+                android:text="@string/xRainfall">
             </TextView>
             <TextView
                 android:id="@+id/txtRainfall"
@@ -96,13 +99,14 @@
                 android:layout_height="100dp"
                 android:background="@drawable/humidity"
                 android:layout_marginTop="3dp"
-                android:layout_marginBottom="3dp">
+                android:layout_marginBottom="3dp"
+                android:contentDescription="@string/xNoImg">
             </ImageView>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
-                android:text="습도">
+                android:text="@string/xHumidity">
             </TextView>
             <TextView
                 android:id="@+id/txtHumidity"
@@ -119,6 +123,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
+        android:baselineAligned="false"
         android:layout_weight="2">
 
         <LinearLayout
@@ -135,13 +140,14 @@
                 android:layout_height="100dp"
                 android:background="@drawable/wind"
                 android:layout_marginTop="3dp"
-                android:layout_marginBottom="3dp">
+                android:layout_marginBottom="3dp"
+                android:contentDescription="@string/xNoImg">
             </ImageView>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
-                android:text="풍향">
+                android:text="@string/xWindShift">
             </TextView>
             <TextView
                 android:id="@+id/txtWindShift"
@@ -150,7 +156,6 @@
                 android:textColor="@color/white">
             </TextView>
         </LinearLayout>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -165,13 +170,14 @@
                 android:layout_height="100dp"
                 android:background="@drawable/windspeed"
                 android:layout_marginTop="3dp"
-                android:layout_marginBottom="3dp">
+                android:layout_marginBottom="3dp"
+                android:contentDescription="@string/xNoImg">
             </ImageView>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
-                android:text="풍속">
+                android:text="@string/xWindSpeed">
             </TextView>
             <TextView
                 android:id="@+id/txtWindSpeed"
