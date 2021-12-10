@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Weather</string>
+    <string name="temp">%s˚</string>
+    <string name="rainfall">%s%%</string>
+    <string name="humidity">%s%%</string>
+    <string name="windshift">%s</string>
+    <string name="windspeed1">약한 바람(%sm/s)</string>
+    <string name="windspeed2">조금 강한 바람(%sm/s)</string>
+    <string name="windspeed3">강한 바람(%sm/s)</string>
+    <string name="windspeed4">매우 강한 바람(%sm/s)</string>
 </resources>
