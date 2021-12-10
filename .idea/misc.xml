@@ -6,11 +6,13 @@
         <entry key="..\:/Users/Pace4/Desktop/Weather/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.38229166666666664" />
         <entry key="..\:/Users/Pace4/Desktop/Weather/app/src/main/res/drawable/border.xml" value="0.2265625" />
         <entry key="..\:/Users/Pace4/Desktop/Weather/app/src/main/res/drawable/ic_launcher_background.xml" value="0.22447916666666667" />
+        <entry key="..\:/Users/Pace4/Desktop/Weather/app/src/main/res/drawable/splash.xml" value="0.2390625" />
         <entry key="..\:/Users/Pace4/Desktop/Weather/app/src/main/res/drawable/splash_background.xml" value="0.22447916666666667" />
-        <entry key="..\:/Users/Pace4/Desktop/Weather/app/src/main/res/layout/activity_main.xml" value="0.29375" />
+        <entry key="..\:/Users/Pace4/Desktop/Weather/app/src/main/res/layout/activity_main.xml" value="0.19074074074074074" />
         <entry key="..\:/Users/Pace4/Desktop/Weather/app/src/main/res/layout/activity_splash.xml" value="0.20833333333333334" />
         <entry key="..\:/Users/Pace4/Desktop/Weather/app/src/main/res/layout/horizon_weather_items.xml" value="0.19791666666666666" />
         <entry key="..\:/Users/Pace4/Desktop/Weather/app/src/main/res/layout/splash_background.xml" value="0.190625" />
+        <entry key="..\:/Users/Pace4/Desktop/Weather/app/src/main/res/layout/testlayout.xml" value="0.1" />
       </map>
     </option>
   </component>
