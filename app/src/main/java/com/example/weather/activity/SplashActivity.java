@@ -4,7 +4,6 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
@@ -15,11 +14,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-
-import com.example.weather.R;
 
 public class SplashActivity extends Activity {
 
@@ -63,12 +59,7 @@ public class SplashActivity extends Activity {
             finish();
         }
         else {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this, REQUIRED_PERMISSIONS[0])) {
-                ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS, PERMISSIONS_REQUEST_CODE);
-            }
-            else {
-                ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS, PERMISSIONS_REQUEST_CODE);
-            }
+            ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS, PERMISSIONS_REQUEST_CODE);
         }
     }
 
@@ -77,19 +68,11 @@ public class SplashActivity extends Activity {
         builder.setTitle("위치 정보 권한");
         builder.setMessage("앱을 사용하기 위해서는 위치 정보 권한이 필요합니다.\n위치 권한을 허용해주세요.");
         builder.setCancelable(true);
-        builder.setPositiveButton("설정", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Intent permission = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                startActivityForResult(permission, GPS_ENABLE_REQUEST_CODE);
-            }
+        builder.setPositiveButton("설정", (dialog, which) -> {
+            Intent permission = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+            startActivityForResult(permission, GPS_ENABLE_REQUEST_CODE);
         });
-        builder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
+        builder.setNegativeButton("취소", (dialog, which) -> dialog.cancel());
         builder.create().show();
     }
 
@@ -98,24 +81,18 @@ public class SplashActivity extends Activity {
         builder.setTitle("위치 정보 권한");
         builder.setMessage("앱을 사용하기 위해서는 위치 정보 권한이 필요합니다.\n위치 권한을 허용해주세요.");
         builder.setCancelable(true);
-        builder.setPositiveButton("설정", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                try {
-                    Intent permission = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:" + getPackageName()));
-                    startActivity(permission);
-                    finish();
-                } catch (ActivityNotFoundException e) {
-                    Toast.makeText(getApplicationContext(), "직접 어플리케이션 설정에서 위치 권한을 허용해주세요.", Toast.LENGTH_SHORT).show();
-                }
+        builder.setPositiveButton("설정", (dialog, which) -> {
+            try {
+                Intent permission = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:" + getPackageName()));
+                startActivity(permission);
+                finish();
+            } catch (ActivityNotFoundException e) {
+                Toast.makeText(getApplicationContext(), "직접 어플리케이션 설정에서 위치 권한을 허용해주세요.", Toast.LENGTH_SHORT).show();
             }
         });
-        builder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-                finish();
-            }
+        builder.setNegativeButton("취소", (dialog, which) -> {
+            dialog.cancel();
+            finish();
         });
         builder.create().show();
     }
@@ -124,15 +101,13 @@ public class SplashActivity extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        switch (requestCode) {
-            case GPS_ENABLE_REQUEST_CODE:
+        if (requestCode == GPS_ENABLE_REQUEST_CODE) {
+            if (checkLocationStatus()) {
                 if (checkLocationStatus()) {
-                    if (checkLocationStatus()) {
-                        checkPermission();
-                        return;
-                    }
+                    checkPermission();
+                    return;
                 }
-                break;
+            }
         }
     }
 
@@ -161,12 +136,7 @@ public class SplashActivity extends Activity {
                 finish();
             }
             else {
-                if (ActivityCompat.shouldShowRequestPermissionRationale(this, REQUIRED_PERMISSIONS[0]) || ActivityCompat.shouldShowRequestPermissionRationale(this, REQUIRED_PERMISSIONS[1])) {
-                    appLocationServiceDialog();
-                }
-                else {
-                    appLocationServiceDialog();
-                }
+                appLocationServiceDialog();
             }
         }
     }

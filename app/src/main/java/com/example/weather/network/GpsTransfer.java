@@ -14,7 +14,6 @@ public class GpsTransfer {
         double YO = 136;        // 기준점 Y좌표(GRID)
 
         double DEGRAD = Math.PI / 180.0;
-        double RADDEG = 180.0 / Math.PI;
 
         double re = RE / GRID;
         double slat1 = SLAT1 * DEGRAD;
@@ -28,11 +27,11 @@ public class GpsTransfer {
         sf = Math.pow(sf, sn) * Math.cos(slat1) / sn;
         double ro = Math.tan(Math.PI * 0.25 + olat * 0.5);
         ro = re * sf / Math.pow(ro, sn);
-        LatXLngY rs = new LatXLngY();
 
+        LatXLngY rs = new LatXLngY();
         rs.lat = lat_X;
         rs.lng = lng_Y;
-        double ra = Math.tan(Math.PI* 0.25 + (lat_X) * DEGRAD * 0.5);
+        double ra = Math.tan(Math.PI * 0.25 + (lat_X) * DEGRAD * 0.5);
         ra = re * sf / Math.pow(ra, sn);
         double theta = lng_Y * DEGRAD - olon;
         if (theta > Math.PI) theta -= 2.0 * Math.PI;
@@ -44,7 +43,7 @@ public class GpsTransfer {
         return rs;
     }
 
-    public class LatXLngY
+    public static class LatXLngY
     {
         public double lat;
         public double lng;

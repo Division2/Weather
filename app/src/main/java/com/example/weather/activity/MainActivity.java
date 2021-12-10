@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModelProvider;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -35,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private String sky_value, pty_value, temp;
     private int fcstTime;
     List<Address> address;
+    double lat, lng;
 
     //강수량, 습도, 풍향, 풍속
     private TextView txtRainfall, txtHumidity, txtWindShift, txtWindSpeed;
@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         viewModel = new ViewModelProvider(this).get(WeatherViewModel.class);
         viewModel.init(this);
         viewModel.getWeather().observe(this, vilageFcst -> {
-            if (viewModel != null) {
+            if (viewModel.getWeather().getValue() != null) {
                 /*
                     SKY : 하늘상태(맑음(1), 구름 많음(3), 흐림(4)
                     PTY : 강수형태(없음(0), 비(1), 비/눈(2), 눈(3), 소나기(4)
@@ -111,10 +111,12 @@ public class MainActivity extends AppCompatActivity {
                 windDirections = (int)Math.floor(windDirectionsCal);
                 //풍속에 따른 바람값
                 windSpeedCal = (int)Math.floor(Double.parseDouble(windSpeed));
-                
+
+                lat = (int)Math.floor(gpsTracker.getLatitude()) == 0 ? 37.895358333333334 : gpsTracker.getLatitude();
+                lng = (int)Math.floor(gpsTracker.getLongitude()) == 0 ? 127.20224444444445 : gpsTracker.getLongitude();
                 //Geocoder를 이용한 위도 경도로 주소 찾기
                 try {
-                    address = geocoder.getFromLocation(gpsTracker.getLatitude(), gpsTracker.getLongitude(), 1);
+                    address = geocoder.getFromLocation(lat, lng, 1);
 
                     if (address != null) {
                         if (address.size() != 0) {
