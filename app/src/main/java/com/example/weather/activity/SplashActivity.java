@@ -35,20 +35,20 @@ public class SplashActivity extends Activity {
     }
 
     public void checkService() {
-        if (checkLocationServicesStatus()) {
-            checkRunTimePermission();
+        if (checkLocationStatus()) {
+            checkPermission();
         }
         else {
-            showDialogForLocationServiceSetting();
+            systemLocationServiceDialog();
         }
     }
 
-    public boolean checkLocationServicesStatus() {
+    public boolean checkLocationStatus() {
         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
     }
 
-    private void checkRunTimePermission() {
+    private void checkPermission() {
         int hasFineLocationPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
         int hasCoarseLocationPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION);
 
@@ -64,7 +64,6 @@ public class SplashActivity extends Activity {
         }
         else {
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, REQUIRED_PERMISSIONS[0])) {
-                Toast.makeText(this, "위치 권한이 필요합니다.", Toast.LENGTH_SHORT).show();
                 ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS, PERMISSIONS_REQUEST_CODE);
             }
             else {
@@ -73,10 +72,10 @@ public class SplashActivity extends Activity {
         }
     }
 
-    private void showDialogForLocationServiceSetting() {
+    private void systemLocationServiceDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("위치 서비스 비활성화");
-        builder.setMessage("앱을 사용하기 위해서는 위치 서비스가 필요합니다.\n위치 권한을 허용해주세요.");
+        builder.setTitle("위치 정보 권한");
+        builder.setMessage("앱을 사용하기 위해서는 위치 정보 권한이 필요합니다.\n위치 권한을 허용해주세요.");
         builder.setCancelable(true);
         builder.setPositiveButton("설정", new DialogInterface.OnClickListener() {
             @Override
@@ -94,10 +93,10 @@ public class SplashActivity extends Activity {
         builder.create().show();
     }
 
-    private void showDialogForLocationServiceGrantedSetting() {
+    private void appLocationServiceDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("위치 서비스 비활성화");
-        builder.setMessage("앱을 사용하기 위해서는 위치 서비스가 필요합니다.\n위치 권한을 허용해주세요.");
+        builder.setTitle("위치 정보 권한");
+        builder.setMessage("앱을 사용하기 위해서는 위치 정보 권한이 필요합니다.\n위치 권한을 허용해주세요.");
         builder.setCancelable(true);
         builder.setPositiveButton("설정", new DialogInterface.OnClickListener() {
             @Override
@@ -127,9 +126,9 @@ public class SplashActivity extends Activity {
 
         switch (requestCode) {
             case GPS_ENABLE_REQUEST_CODE:
-                if (checkLocationServicesStatus()) {
-                    if (checkLocationServicesStatus()) {
-                        checkRunTimePermission();
+                if (checkLocationStatus()) {
+                    if (checkLocationStatus()) {
+                        checkPermission();
                         return;
                     }
                 }
@@ -163,10 +162,10 @@ public class SplashActivity extends Activity {
             }
             else {
                 if (ActivityCompat.shouldShowRequestPermissionRationale(this, REQUIRED_PERMISSIONS[0]) || ActivityCompat.shouldShowRequestPermissionRationale(this, REQUIRED_PERMISSIONS[1])) {
-                    showDialogForLocationServiceGrantedSetting();
+                    appLocationServiceDialog();
                 }
                 else {
-                    showDialogForLocationServiceGrantedSetting();
+                    appLocationServiceDialog();
                 }
             }
         }
