@@ -1,73 +1,185 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.MainActivity"
-    android:orientation="vertical"
     android:background="@color/bBlue"
-    android:weightSum="10">
+    android:orientation="vertical">
 
+    <!-- 실시간 날씨 정보 -->
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:orientation="vertical"
-        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
         android:gravity="center"
-        android:layout_weight="8">
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/txtCity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="30dp"
+            android:textColor="@color/white"/>
+
+        <ImageView
+            android:id="@+id/imgWeather"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"/>
+
+        <TextView
+            android:id="@+id/txtTemp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="60dp"
+            android:textColor="@color/white"/>
+
+        <TextView
+            android:id="@+id/txtStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="15dp"
+            android:textColor="@color/white"/>
+    </LinearLayout>
+    <!-- 실시간 날씨 정보 -->
+
+    <!-- 강수량, 습도 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_weight="2">
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/txtCity"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textSize="30dp"
-                android:textColor="@color/white"/>
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_margin="10dp"
+            android:background="@drawable/shape_layout"
+            android:layout_weight="2">
 
             <ImageView
-                android:id="@+id/imgWeather"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:src="@drawable/sunny_day"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"/>
-
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="@drawable/drop"
+                android:layout_marginTop="3dp"
+                android:layout_marginBottom="3dp">
+            </ImageView>
             <TextView
-                android:id="@+id/txtTemp"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textSize="60dp"
-                android:textColor="@color/white"/>
-
+                android:textColor="@color/white"
+                android:text="강수량">
+            </TextView>
             <TextView
-                android:id="@+id/txtStatus"
-                android:layout_width="match_parent"
+                android:id="@+id/txtRainfall"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textSize="15dp"
-                android:textColor="@color/white"/>
+                android:textColor="@color/white">
+            </TextView>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_margin="10dp"
+            android:background="@drawable/shape_layout"
+            android:layout_weight="2">
 
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="@drawable/humidity"
+                android:layout_marginTop="3dp"
+                android:layout_marginBottom="3dp">
+            </ImageView>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="습도">
+            </TextView>
             <TextView
                 android:id="@+id/txtHumidity"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textSize="15dp"
-                android:textColor="@color/white"/>
+                android:textColor="@color/white">
+            </TextView>
         </LinearLayout>
     </LinearLayout>
+    <!-- 강수량, 습도 -->
 
-<!--    <androidx.recyclerview.widget.RecyclerView-->
-<!--        android:id="@+id/recyclerView"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_weight="2"/>-->
+    <!-- 풍향, 풍속 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_weight="2">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_margin="10dp"
+            android:background="@drawable/shape_layout"
+            android:layout_weight="2">
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="@drawable/wind"
+                android:layout_marginTop="3dp"
+                android:layout_marginBottom="3dp">
+            </ImageView>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="풍향">
+            </TextView>
+            <TextView
+                android:id="@+id/txtWindShift"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white">
+            </TextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_margin="10dp"
+            android:background="@drawable/shape_layout"
+            android:layout_weight="2">
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="@drawable/windspeed"
+                android:layout_marginTop="3dp"
+                android:layout_marginBottom="3dp">
+            </ImageView>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="풍속">
+            </TextView>
+            <TextView
+                android:id="@+id/txtWindSpeed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white">
+            </TextView>
+        </LinearLayout>
+    </LinearLayout>
+    <!-- 풍향, 풍속 -->
 </LinearLayout>
