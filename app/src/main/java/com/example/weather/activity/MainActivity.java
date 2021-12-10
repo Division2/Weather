@@ -70,14 +70,14 @@ public class MainActivity extends AppCompatActivity {
         viewModel.getWeather().observe(this, new Observer<VilageFcst>() {
             @Override
             public void onChanged(VilageFcst vilageFcst) {
-                if (vilageFcst != null) {
-                    weatherModel = viewModel.getWeather().getValue();
-
+                if (viewModel != null) {
                     /*
                         SKY : 하늘상태
                         PTY : 강수형태
                         TMP : 1시간 기온
                      */
+                    weatherModel = viewModel.getWeather().getValue();
+
                     sky_value = weatherModel.getResponse().getBody().getItems().getItem().get(5).getFcstValue();                 //Category : SKY
                     pty_value = weatherModel.getResponse().getBody().getItems().getItem().get(6).getFcstValue();                 //Category : PTY
                     fcstTime = Integer.parseInt(weatherModel.getResponse().getBody().getItems().getItem().get(0).getFcstTime()); //Category : TMP

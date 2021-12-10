@@ -1,6 +1,7 @@
 package com.example.weather.repository;
 
 import android.content.Context;
+import android.location.GpsStatus;
 import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
@@ -9,6 +10,7 @@ import com.example.weather.BuildConfig;
 import com.example.weather.activity.MainActivity;
 import com.example.weather.model.VilageFcst;
 import com.example.weather.network.GpsTracker;
+import com.example.weather.network.GpsTransfer;
 import com.example.weather.network.WeatherAPI;
 import com.example.weather.network.RetrofitService;
 
@@ -27,19 +29,21 @@ public class WeatherRepository {
 
     //위치 정보
     private GpsTracker gpsTracker;
-
+    private GpsTransfer gpsTransfer;
+    private String[] gridXY;
     private Context context;
 
     private SimpleDateFormat sdf;
 
+    //Default Data
     String serviceKey = BuildConfig.SERVICE_KEY;
     String pageNo = "1";
     String numOfRows = "11";
     String dataType = "JSON";
     String base_date = getTodayDate();
     String base_time = getBaseTime();
-    String nx = "37";
-    String ny = "127";
+    String nx = "64";
+    String ny = "134";
 
     public static WeatherRepository getInstance() {
         if (instance == null) {
@@ -51,22 +55,26 @@ public class WeatherRepository {
     public MutableLiveData<VilageFcst> getWeather(Context context) {
         this.context = context;
 
+        //API Instance 생성
         weatherAPI = RetrofitService.getInstance().create(WeatherAPI.class);
 
         MutableLiveData<VilageFcst> data = new MutableLiveData<>();
+        //API 호출
         callWeatherAPI(data);
 
         return data;
     }
 
     private void callWeatherAPI(MutableLiveData<VilageFcst> data) {
-
+        //GPS 정보
         gpsTracker = new GpsTracker(context);
-        int currentLat = (int)Math.floor(gpsTracker.getLatitude());
-        int currentLon = (int)Math.floor(gpsTracker.getLongitude());
+        //GPS 위도 경도 -> 격자 좌표 X, Y Convert
+        gpsTransfer = new GpsTransfer();
 
-        nx = String.valueOf(currentLat);
-        ny = String.valueOf(currentLon);
+        GpsTransfer.LatXLngY latXLngY = gpsTransfer.convertGRID_GPS(gpsTracker.getLatitude(), gpsTracker.getLongitude());
+
+        nx = String.valueOf((int)latXLngY.x);
+        ny = String.valueOf((int)latXLngY.y);
 
         weatherAPI.getVilageFcst(serviceKey, pageNo, numOfRows, dataType, base_date, base_time, nx, ny).enqueue(new Callback<VilageFcst>() {
             @Override
