@@ -30,7 +30,7 @@ public class WeatherRepository {
     private Context context;
 
     private SimpleDateFormat sdf;
-
+    
     private double lat, lng;
 
     //Default Data

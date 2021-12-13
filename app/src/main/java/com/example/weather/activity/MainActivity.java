@@ -106,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
                     15 : NNW(북북서)
                     16 : N(북)
                  */
+
                 //풍향값에 따른 16방위 변환
                 windDirectionsCal = (Integer.parseInt(windShift) + 22.5 * 0.5) / 22.5;
                 windDirections = (int)Math.floor(windDirectionsCal);
